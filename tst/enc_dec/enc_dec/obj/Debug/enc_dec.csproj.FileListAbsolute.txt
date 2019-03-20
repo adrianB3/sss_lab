@@ -1,0 +1,10 @@
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\bin\Debug\enc_dec.exe.config
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\bin\Debug\enc_dec.exe
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\bin\Debug\enc_dec.pdb
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.csprojAssemblyReference.cache
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.Form1.resources
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.Properties.Resources.resources
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.csproj.GenerateResource.cache
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.csproj.CoreCompileInputs.cache
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.exe
+C:\Users\Adrian Balanescu\Documents\dev\sss_lab\tst\enc_dec\enc_dec\obj\Debug\enc_dec.pdb
