@@ -69,7 +69,9 @@ namespace keysRSA
             double[] results = new double[4];
             RSACryptoServiceProvider myrsa = new RSACryptoServiceProvider(p); 
             System.Diagnostics.Stopwatch swatch = new System.Diagnostics.Stopwatch(); 
-            int size; int count = 100; 
+            int size; 
+            int count = 100; 
+
             swatch.Start(); 
             for (int i = 0; i < count; i++) 
             { 
@@ -101,6 +103,19 @@ namespace keysRSA
             } 
             swatch.Stop();
             results[2] = (swatch.ElapsedTicks / (10 * count));
+
+            SHA256Managed myHash = new SHA256Managed(); 
+            string some_text = "this is an important message"; //sign the message 
+            byte[] signature; 
+            swatch.Reset();
+
+            swatch.Start();
+            for (int i = 0; i < count; i++)
+            {
+                signature = myrsa.SignData(System.Text.Encoding.ASCII.GetBytes(some_text), myHash);
+            }
+            swatch.Stop();
+            results[3] = (swatch.ElapsedTicks / (10 * count));
 
             return results;
         }
