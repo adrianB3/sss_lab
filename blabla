@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
+
+namespace keysRSA
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int op = 0;
+            double[] results = new double[4] { 0, 0, 0, 0 };
+            byte[] plaintext;
+            do
+            {
+            Console.WriteLine("Meniu: ");
+            Console.WriteLine("1.1024 biti");
+            Console.WriteLine("2.2048 biti");
+            Console.WriteLine("3.3072 biti");
+            Console.WriteLine("4.4096 biti");
+            Console.WriteLine("5.Iesire");
+            Console.WriteLine("Introduceti optiunea dorita: ");
+            op = Convert.ToInt16(Console.ReadLine());
+
+            
+                switch (op)
+                {
+                    case 1:
+                        plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
+                        results = time_generation(1024, plaintext);
+                        Console.WriteLine("Key Generation time at 1024 bit... " + results[0].ToString() + "us");
+                        Console.WriteLine("Encryption Time at 1024 biti..." + results[1] + "us");
+                        Console.WriteLine("Decryption Time at 1024 biti..." + results[2] + "us");
+                        Console.WriteLine("Signature Time at 1024 biti..." + results[3] + "us");
+                        break;
+                    case 2:
+                        plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
+                        results = time_generation(2048, plaintext);
+                        Console.WriteLine("Key Generation time at 2048 bit... " + results[0].ToString() + "us");
+                        Console.WriteLine("Encryption Time at 2048 biti..." + results[1] + "us");
+                        Console.WriteLine("Decryption Time at 2048 biti..." + results[2] + "us");
+                        Console.WriteLine("Signature Time at 2048 biti..." + results[3] + "us");
+                        break;
+                    case 3:
+                        plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
+                        results = time_generation(3072, plaintext);
+                        Console.WriteLine("Key Generation time at 3072 bit... " + results[0].ToString() + "us");
+                        Console.WriteLine("Encryption Time at 3072 biti..." + results[1] + "us");
+                        Console.WriteLine("Decryption Time at 3072 biti..." + results[2] + "us");
+                        Console.WriteLine("Signature Time at 3072 biti..." + results[3] + "us");
+                        break;
+                    case 4:
+                        plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
+                        results = time_generation(4096, plaintext);
+                        Console.WriteLine("Key Generation time at 4096 bit... " + results[0].ToString() + "us");
+                        Console.WriteLine("Encryption Time at 4096 biti..." + results[1] + "us");
+                        Console.WriteLine("Decryption Time at 4096 biti..." + results[2] + "us");
+                        Console.WriteLine("Signature Time at 4096 biti..." + results[3] + "us");
+                        break;
+                }
+            }
+            while (op != 5);
+        }
+
+        private static double[] time_generation(int p, byte[] plaintext)
+        {
+            double[] results = new double[4];
+            RSACryptoServiceProvider myrsa = new RSACryptoServiceProvider(p); 
+            System.Diagnostics.Stopwatch swatch = new System.Diagnostics.Stopwatch(); 
+            int size; int count = 100; 
+            swatch.Start(); 
+            for (int i = 0; i < count; i++) 
+            { 
+                myrsa = new RSACryptoServiceProvider(p); 
+                size = myrsa.KeySize; 
+            }  
+            swatch.Stop();
+            results[0] = (swatch.ElapsedTicks / (10 * count));
+
+            byte[] plain = new byte[20]; 
+            byte[] ciphertext = myrsa.Encrypt(plain, true);
+
+            swatch.Reset(); 
+            swatch.Start();
+
+            for (int i = 0; i < count; i++) 
+            { 
+                ciphertext = myrsa.Encrypt(plain, true); 
+            } 
+            swatch.Stop();
+            results[1] = (swatch.ElapsedTicks / (10 * count));
+
+            swatch.Reset(); 
+
+            swatch.Start(); 
+            for (int i = 0; i < count; i++) 
+            { 
+                plain = myrsa.Decrypt(ciphertext, true); 
+            } 
+            swatch.Stop();
+            results[2] = (swatch.ElapsedTicks / (10 * count));
+
+            return results;
+        }
+    }
+}
