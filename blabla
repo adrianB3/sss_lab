@@ -30,34 +30,34 @@ namespace keysRSA
                     case 1:
                         plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
                         results = time_generation(1024, plaintext);
-                        Console.WriteLine("Key Generation time at 1024 bit... " + results[0].ToString() + "us");
-                        Console.WriteLine("Encryption Time at 1024 biti..." + results[1] + "us");
-                        Console.WriteLine("Decryption Time at 1024 biti..." + results[2] + "us");
-                        Console.WriteLine("Signature Time at 1024 biti..." + results[3] + "us");
+                        Console.WriteLine("Key Generation time at 1024 bit... " + results[0].ToString() + "ms");
+                        Console.WriteLine("Encryption Time at 1024 biti..." + results[1] + "ms");
+                        Console.WriteLine("Decryption Time at 1024 biti..." + results[2] + "ms");
+                        Console.WriteLine("Signature Time at 1024 biti..." + results[3] + "ms");
                         break;
                     case 2:
                         plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
                         results = time_generation(2048, plaintext);
-                        Console.WriteLine("Key Generation time at 2048 bit... " + results[0].ToString() + "us");
-                        Console.WriteLine("Encryption Time at 2048 biti..." + results[1] + "us");
-                        Console.WriteLine("Decryption Time at 2048 biti..." + results[2] + "us");
-                        Console.WriteLine("Signature Time at 2048 biti..." + results[3] + "us");
+                        Console.WriteLine("Key Generation time at 2048 bit... " + results[0].ToString() + "ms");
+                        Console.WriteLine("Encryption Time at 2048 biti..." + results[1] + "ms");
+                        Console.WriteLine("Decryption Time at 2048 biti..." + results[2] + "ms");
+                        Console.WriteLine("Signature Time at 2048 biti..." + results[3] + "ms");
                         break;
                     case 3:
                         plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
                         results = time_generation(3072, plaintext);
-                        Console.WriteLine("Key Generation time at 3072 bit... " + results[0].ToString() + "us");
-                        Console.WriteLine("Encryption Time at 3072 biti..." + results[1] + "us");
-                        Console.WriteLine("Decryption Time at 3072 biti..." + results[2] + "us");
-                        Console.WriteLine("Signature Time at 3072 biti..." + results[3] + "us");
+                        Console.WriteLine("Key Generation time at 3072 bit... " + results[0].ToString() + "ms");
+                        Console.WriteLine("Encryption Time at 3072 biti..." + results[1] + "ms");
+                        Console.WriteLine("Decryption Time at 3072 biti..." + results[2] + "ms");
+                        Console.WriteLine("Signature Time at 3072 biti..." + results[3] + "ms");
                         break;
                     case 4:
                         plaintext = System.Text.Encoding.ASCII.GetBytes("hello");
                         results = time_generation(4096, plaintext);
-                        Console.WriteLine("Key Generation time at 4096 bit... " + results[0].ToString() + "us");
-                        Console.WriteLine("Encryption Time at 4096 biti..." + results[1] + "us");
-                        Console.WriteLine("Decryption Time at 4096 biti..." + results[2] + "us");
-                        Console.WriteLine("Signature Time at 4096 biti..." + results[3] + "us");
+                        Console.WriteLine("Key Generation time at 4096 bit... " + results[0].ToString() + "ms");
+                        Console.WriteLine("Encryption Time at 4096 biti..." + results[1] + "ms");
+                        Console.WriteLine("Decryption Time at 4096 biti..." + results[2] + "ms");
+                        Console.WriteLine("Signature Time at 4096 biti..." + results[3] + "ms");
                         break;
                 }
             }
@@ -70,7 +70,7 @@ namespace keysRSA
             RSACryptoServiceProvider myrsa = new RSACryptoServiceProvider(p); 
             System.Diagnostics.Stopwatch swatch = new System.Diagnostics.Stopwatch(); 
             int size; 
-            int count = 100; 
+            int count = 1; 
 
             swatch.Start(); 
             for (int i = 0; i < count; i++) 
@@ -79,7 +79,8 @@ namespace keysRSA
                 size = myrsa.KeySize; 
             }  
             swatch.Stop();
-            results[0] = (swatch.ElapsedTicks / (10 * count));
+            var ticks = swatch.ElapsedTicks;
+            results[0] = (double)(((double)ticks / System.Diagnostics.Stopwatch.Frequency) * 1000);
 
             byte[] plain = new byte[20]; 
             byte[] ciphertext = myrsa.Encrypt(plain, true);
@@ -92,7 +93,8 @@ namespace keysRSA
                 ciphertext = myrsa.Encrypt(plain, true); 
             } 
             swatch.Stop();
-            results[1] = (swatch.ElapsedTicks / (10 * count));
+            ticks = swatch.ElapsedTicks;
+            results[1] = (double)(((double)ticks / System.Diagnostics.Stopwatch.Frequency) * 1000);
 
             swatch.Reset(); 
 
@@ -102,7 +104,8 @@ namespace keysRSA
                 plain = myrsa.Decrypt(ciphertext, true); 
             } 
             swatch.Stop();
-            results[2] = (swatch.ElapsedTicks / (10 * count));
+            ticks = swatch.ElapsedTicks;
+            results[2] = (double)(((double)ticks / System.Diagnostics.Stopwatch.Frequency) * 1000);
 
             SHA256Managed myHash = new SHA256Managed(); 
             string some_text = "this is an important message"; //sign the message 
@@ -115,7 +118,8 @@ namespace keysRSA
                 signature = myrsa.SignData(System.Text.Encoding.ASCII.GetBytes(some_text), myHash);
             }
             swatch.Stop();
-            results[3] = (swatch.ElapsedTicks / (10 * count));
+            ticks = swatch.ElapsedTicks;
+            results[3] = (double)(((double)ticks / System.Diagnostics.Stopwatch.Frequency) * 1000);
 
             return results;
         }
